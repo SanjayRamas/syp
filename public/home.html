@@ -56,7 +56,25 @@
    <div class="recentViewsBlock">
       <h3 class="thirdHeading">Recent Reviews</h3>
       <ul id="ulReviews" class="recentReviewsList">
-         <li>
+        <div ng-repeat="comment in allComments | orderBy:'-time' | filter : { time : '!!' } " style="background-color:#FFFFFF;margin-bottom:15px;">
+          <li>
+            <div class="eachRR">
+               <div class="eachRRPhotoRat">
+                  <div class="eachRRPhoto"><img src="https://cdn.yellowpages.in/assets/u/nophoto.jpg" alt=""></div>
+                  <div class="titleRating">
+                     <a class="reviewerName">{{comment.author}}</a>
+                     <div class="reviewRating">
+                        <i class="fa fa-star" ng-repeat="n in range(1,comment.score)" style="color:#ffe100;font-size: 20px;"></i>
+                        <i class="fa fa-star-o" ng-repeat="n in range(1,5-comment.score)" style="color:#ffe100;font-size: 20px;"></i>
+                    </div>
+                    <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(comment)"></span>{{comment.upvotes}}
+                  </div>
+               </div>
+<!--                <a  class="eachRRTitle">White House Apparels Pvt Ltd</a> -->
+               <p class="eachRRTitleInfo">{{comment.body}}</p>
+            </div>
+            </li>
+         <!--li>
             <div class="eachRR">
                <div class="eachRRPhotoRat">
                   <div class="eachRRPhoto"><img src="https://cdn.yellowpages.in/assets/u/nophoto.jpg" alt=""></div>
@@ -110,9 +128,10 @@
                   Marketing). They delivery the projects within time as they...
                </p>
             </div>
-         </li>
+         </li-->
+        </div>
       </ul>
-   </div>
+
    <div class="haveBusiness">
       <div class="haveBusinessAd" style="background-image:url(https://cdn.yellowpages.in/images/cityDrawing.png);">Have a business to list with us?
          <br><a href="/#/addrecord" class="addBusinessBtn">Add your business</a>
@@ -122,5 +141,6 @@
 </div>
 <div class="col-md-1">
   
+</div>
 </div>
 </div>

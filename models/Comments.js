@@ -5,6 +5,7 @@ var CommentSchema = new mongoose.Schema ({
   author: String,
   score:Number,
   upvotes: {type: Number, default: 0},
+  time: String,
   record: { type: mongoose.Schema.Types.ObjectId, ref: 'Record' }
 });
 

@@ -63,7 +63,8 @@ app.config(['$stateProvider', '$urlRouterProvider',
 
 app.factory('records', ['$http','auth', function($http, auth) {
   var o = {
-    records: []
+    records: [],
+    allComments: []
   };
   
   o.getAll = function () {
@@ -93,6 +94,13 @@ app.factory('records', ['$http','auth', function($http, auth) {
   o.get = function (id) {
     return $http.get('/records/' + id)
     .then(function(res){
+            console.log(res.data);
+            angular.forEach(res.data.comments, function(comment){
+              console.log(comment);
+              o.allComments.push(comment);
+            });
+            //o.allComments.push(res.data.comments);
+            console.log(o.allComments);
             return res.data;
     });
   }
@@ -167,7 +175,7 @@ app.factory('auth', ['$http', '$window', function ($http, $window) {
 app.controller('MainCtrl', [
   '$scope', 'records', 'auth',
   function ($scope, records, auth) {
-    
+    console.log(records);
     $scope.range = function(min, max, step){
     step = step || 1;
     var input = [];
@@ -187,6 +195,14 @@ app.controller('MainCtrl', [
   
     $scope.isLoggedIn = auth.isLoggedIn;
     $scope.records = records.records;
+    
+    $scope.allComments = records.allComments;
+    angular.forEach($scope.records, function(record){
+      console.log(record);
+      console.log(records.get(record._id).value);
+    });
+    $scope.records = records.records;
+    console.log($scope.allComments);
     
     $scope.addRecord = function() {
       console.log("addRecord");
@@ -222,16 +238,23 @@ app.controller('RecordsCtrl', [
   function ($scope, records, record, auth) {
     $scope.isLoggedIn = auth.isLoggedIn;
     $scope.record= record;
-    
+    $scope.allComments = [];
+    console.log(records);
+    console.log(record);
     $scope.addComment = function () {
       if ($scope.body === "") {return;};
       records.addComment(record._id, {
           body: $scope.body,
           author: 'user',
           score:$scope.score,
+          time: new Date(),
           }).success(function(comment) {
+              console.log(comment);
               $scope.record.comments.push(comment);
+              records.allComments.push(comment);
+              $scope.allComments = records.allComments;
           });
+      $scope.allComments = records.allComments;
       $scope.body = '';
       
     }
