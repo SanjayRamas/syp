@@ -94,10 +94,18 @@ app.factory('records', ['$http','auth', function($http, auth) {
   o.get = function (id) {
     return $http.get('/records/' + id)
     .then(function(res){
+            var entry = {};
             console.log(res.data);
+            entry.entryid = res.data._id;
+            entry.bizname = res.data.bizname;
             angular.forEach(res.data.comments, function(comment){
               console.log(comment);
-              o.allComments.push(comment);
+              entry.author = comment.author;
+              entry.body = comment.body;
+              entry.score = comment.score;
+              entry.time = comment.time;
+              entry.upvotes = comment.upvotes;
+              o.allComments.push(entry);
             });
             //o.allComments.push(res.data.comments);
             console.log(o.allComments);

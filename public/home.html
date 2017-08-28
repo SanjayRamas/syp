@@ -56,9 +56,11 @@
    <div class="recentViewsBlock">
       <h3 class="thirdHeading">Recent Reviews</h3>
       <ul id="ulReviews" class="recentReviewsList">
-        <div ng-repeat="comment in allComments | orderBy:'-time' | filter : { time : '!!' } " style="background-color:#FFFFFF;margin-bottom:15px;">
+        <div ng-repeat="comment in allComments | filter : { time : '!!' } | orderBy:'-time' | filter : { bizname : '!!' } track by $index" style="background-color:#FFFFFF;margin-bottom:15px;">
           <li>
             <div class="eachRR">
+              <a href="#/records/{{comment.entryid}}">{{comment.bizname}}</a>   
+               <p class="eachRRTitleInfo">{{comment.body}}</p>
                <div class="eachRRPhotoRat">
                   <div class="eachRRPhoto"><img src="https://cdn.yellowpages.in/assets/u/nophoto.jpg" alt=""></div>
                   <div class="titleRating">
@@ -66,12 +68,13 @@
                      <div class="reviewRating">
                         <i class="fa fa-star" ng-repeat="n in range(1,comment.score)" style="color:#ffe100;font-size: 20px;"></i>
                         <i class="fa fa-star-o" ng-repeat="n in range(1,5-comment.score)" style="color:#ffe100;font-size: 20px;"></i>
+                       <br/>
+                       {{comment.time | date:'dd-MM-yyyy HH:mm:ss'}}
+                       <br/>
                     </div>
-                    <span class="glyphicon glyphicon-thumbs-up" ng-click="incrementUpvotes(comment)"></span>{{comment.upvotes}}
                   </div>
                </div>
-<!--                <a  class="eachRRTitle">White House Apparels Pvt Ltd</a> -->
-               <p class="eachRRTitleInfo">{{comment.body}}</p>
+              <br/>
             </div>
             </li>
          <!--li>
