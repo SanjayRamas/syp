@@ -180,6 +180,31 @@ app.factory('auth', ['$http', '$window', function ($http, $window) {
   return auth;
 }]);
 
+app.controller('NavController', function ($scope, $location) {
+    $scope.isCollapsed = true;
+    $scope.$on('$routeChangeSuccess', function () {
+        $scope.isCollapsed = true;
+    });
+  
+    $scope.getClass = function (path) {
+    if(path === '/home') {
+        if($location.path() === '/home') {
+            return "active";
+        } else {
+            return "";
+        }
+    }
+ 
+    if ($location.path().substr(0, path.length) === path) {
+        return "active";
+    } else {
+        return "";
+    }
+}
+    
+});
+
+
 app.controller('MainCtrl', [
   '$scope', 'records', 'auth',
   function ($scope, records, auth) {

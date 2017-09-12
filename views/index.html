@@ -1,6 +1,8 @@
+
 <html>
 <head>
   <title>Silfra Telephone Directory</title>
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -8,40 +10,51 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
   <script src="app.js"></script>
   <link rel="stylesheet" type="text/css" href="styles.css">
- 
-  
-</head>
-<body ng-app="directory" ng-controller="MainCtrl" style="background-color:#f2f1ef;">
-  <nav class="navbar navbar-default" ng-controller="NavCtrl" style="background-color: #ffcf05;">
-    
-    <div class="container" style="width:1170px;margin-left: 6%;">
-      <a class="navbar-brand" href="/#/landing"><img src="https://cdn.yellowpages.in/images/yellow-pages-logo.png" alt="Silfra" style="margin-top: -10px;width: 40px;"></a>
-      <ul class="nav navbar-nav">
-         
-        <li ng-show="isLoggedIn()"><a href="/#/home">Home</a></li>
-        <!--li ng-show="isLoggedIn()"><a>{{ currentUser() }}</a></li-->
-        <li ng-show="isLoggedIn()"><a href="/#/addrecord">Add Business</a></li>
-<!--         <li ng-show="0" style="margin-left:25px;"> </li>
-        <li ng-show="0" style="margin-left:25px;"> </li> -->
 
-        
-        <li >
-          <div class="search">
-            <input type="text" ng-model="$parent.nameFilter.$" class="form-control" ng-init="Apparels" placeholder="Search..." id="main_search" style="width:200%;margin-top:5px;font-weight:normal;height: 39px;border-radius:3px;" />
-            <span class="fa fa-search" onclick="javascript:location.href='#/home'"></span>
-          </div>
-        </li>
-        <li ng-hide="isLoggedIn()" style="margin-left: 695px;"><a href="/#/login" class="pull-right">Log In</a></li>
-        <li ng-hide="isLoggedIn()"><a href="/#/register"  class="pull-right">Register</a></li>
-      </ul>
-      <ul class="nav navbar-nav pull-right">
-        <li ng-show="isLoggedIn()"><a href="" ng-click="logout()">Log Out</a></li>
-      </ul>  
+</head>
+  
+<body ng-app="directory" ng-controller="MainCtrl" style="background-color:#f2f1ef;">
+  
+  
+  
+  
+  <!--My NAV-->
+ <nav ng-controller="NavController" class="navbar navbar-inverse navbar-fixed-top" style="background-color: #ffcf05;" role="navigation>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" ng-click="isCollapsed = !isCollapsed">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+        <a class="navbar-brand" href="/#/landing"><img src="https://cdn.yellowpages.in/images/yellow-pages-logo.png" alt="Silfra" style="margin-top: -10px;width: 40px;"></a>
     </div>
-  </nav>
-  <div class="row">
-      <ui-view></ui-view>
+    <div class="collapse navbar-collapse" ng-class="isCollapsed ? 'collapse' : 'in'">
+      <ul class="nav navbar-nav">
+                  <li>
+                     <input type="text" ng-model="$parent.nameFilter.$" class="form-control" ng-init="Apparels" placeholder="Search..." id="main_search">
+                    <span class="fa fa-search" onclick="javascript:location.href='#/home'"></span>
+                  </li>
+                   
+              </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li ng-class="getClass('/home')" ng-show="isLoggedIn()"><a href="/#/home"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
+                   <li ng-class="getClass('/addrecord')" ng-show="isLoggedIn()"><a href="/#/addrecord"><span class=" glyphicon glyphicon-info-sign" aria-hidden="true"></span>Add Business</a></li>
+                  <li ng-class="getClass('/login')" ng-hide="isLoggedIn()"><a href="/#/login" class="pull-right">Log In</a></li>
+                  <li ng-class="getClass('/register')" ng-hide="isLoggedIn()"><a href="/#/register"  class="pull-right">Register</a></li>
+                    
+                  <li ng-class="getClass('')" ng-show="isLoggedIn()"><a href="" class="pull-right" ng-click="logout()">Log Out</a></li>
+                   
+                </ul>
+    </div>
   </div>
+</nav>
+   
+  
+        
+      
+        <ui-view></ui-view>
+      
 
 </body>
 </html>
