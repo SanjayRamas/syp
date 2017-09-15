@@ -67,6 +67,19 @@ router.get('/records/:record', function (req, res, next) {
   })  
 });
 
+router.post('/records/:record', function (req, res, next) {   
+  var con = {_id: req.params.id};
+  
+  req.record.update(con, req.body)
+  .then(record => {
+    if(!record) { return res.status(404).end();}
+    return res.status(200).json(record);
+       
+  })
+  .catch(err => next(err));
+  }) ; 
+
+
 router.put('/records/:record/upvote',  function (req, res, next) {
   console.log(req);
   req.record.upvote(function(err, record) {
@@ -102,12 +115,12 @@ router.post('/register', function(req, res, next) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).json({message: 'Please fill out all the fields.'});
   }
-  
+  console.log('ok');
   var user = new User();
   user.username = req.body.username;
   user.setPassword(req.body.password);
   user.save( function (err) {
-    if (err) {return next(err) ; }
+    if (err) {console.log("prob"); return next(err) ; }
     return res.json({token: user.generateJWT()});
   });
 });
