@@ -30,10 +30,10 @@
           </div>
         </li>
         </ul>
-        <ul class="nav navbar-nav pull-right">
+        <ul class="nav navbar-nav navbar-right">
         <li ng-class="getClass('/landing')" ng-hide="isLoggedIn()" ><a href="/#/landing">Home</a></li>
-        <li ng-class="getClass('/login')" ng-hide="isLoggedIn()" ><a href="/#/login" class="pull-right">Log In</a></li>
-        <li ng-class="getClass('/register')" ng-hide="isLoggedIn()"><a href="/#/register"  class="pull-right">Register</a></li>
+        <li ng-class="getClass('/login')" ng-hide="isLoggedIn()" ><a href="/#/login" >Log In</a></li>
+        <li ng-class="getClass('/register')" ng-hide="isLoggedIn()"><a href="/#/register" >Register</a></li>
         <li ng-class="getClass('/home')" ng-hide="isLoggedIn()"><a href="/#/home" >View Invoice</a></li>
       
         <li ng-class="getClass('/landing')" ng-show="isLoggedIn()"><a href="/#/landing">Home</a></li>
@@ -44,8 +44,9 @@
     </div>
   </div>
   </nav>
- 
-      <ui-view></ui-view>
+     
+      <ui-view></ui-view>   
+    
 
 </body>
 </html>
