@@ -1,32 +1,8 @@
-<div class="container" style="margin-top: 50px;">
-            <div class="col-md-1">
-              
-           </div>
-            <div class="col-md-7 " style="margin-top: 10px;">      
-             <div class="page-header"> 
-              <h3 class="thirdHeading">
-                        LIST OF INVOICE
-                        </h3> 
-             
-                <table class="table table-bordered">
-                  <thead>
-                    <tr >
-                      <th ><h4 style="text-align:left;">
-                        Invoice number
-                        </h4></th>
-                      <th><h4 style="text-align:left;"> Customer Name </h4></th>
-                      
-                      <th><h4 style="text-align:left;"> Company Name </h4></th>
-                      
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-repeat="record in records">
-                      <td><a href="#/records/{{record._id}}" style="text-decoration:none">{{record.invoice.invoice_number}}</a></td><td>{{record.invoice.customer_info.name}}</td><td>{{record.invoice.company_info.name_c}}</td> 
-                    </tr>
-                  </tbody>
-               </table>
-        <!-- <div ng-repeat="record in records | filter : { record.invoice_number : '!!' } | filter: nameFilter" style="background-color:#FFFFFF;margin-bottom:15px;">
+           <div class="container">
+            
+            <div class="col-md-7 col-xs-12 col-sm-6 col-lg-8 " style="margin-top: 100px;">      
+
+         <div ng-repeat="record in records | orderBy:'-upvotes' | filter : { bizname : '!!' } | filter: nameFilter" style="background-color:#FFFFFF;margin-bottom:15px;">
             <div class="eachBiz img-thumbnail" style="border: 0px solid #ddd;float:left; width:100%; background-color:#FDFDFD; padding:10px;margin-bottom:15px;border-radius: 0px;">
              <div class="col-md-3" style="padding:0px;">
               <img class="img-thumbnail" src="{{record.link}}" style="width:200px;height: 120px;">
@@ -34,22 +10,67 @@
            <div class="col-md-9">
               <div>
                  <h4 style="margin-top: 0px;">
-                  <a href="#/records/{{record._id}}">{{record.invoice_number}}</a>   
+                  <a href="#/records/{{record._id}}">{{record.bizname}}</a>   
                </h4>
                <span class="glyphicon glyphicon-thumbs-up"
-               ng-click="incrementUpvote(record)"></span> {{record.customer_info}}
+               ng-click="incrementUpvote(record)"></span> {{record.upvotes}}
             </div>
-           <!-- <div class="col-md-5 col-md-offset-7" style="padding-right:0px;text-align:right;">
+            <div class="col-md-5 col-md-offset-7" style="padding-right:0px;text-align:right;">
               {{record.category}}
            </div>
            <div class="col-md-5 col-md-offset-7" style="padding-right:0px;text-align:right;">
               {{record.address}}
-           </div>-->
+           </div>
         </div>
 
      </div>
   </div>
-<!-- </div> 
+<!-- </div> -->
 </div>
 
-</div-->
+<div class="col-md-3 col-xs-12 col-sm-6 col-lg-4" style="margin-top: 100px;"> 
+  <div class="media-body">
+ <!--div class="popularRightBlock"-->
+   <div class="recentViewsBlock">
+    
+      <h3 class="thirdHeading">Recent Reviews</h3>
+      <ul id="ulReviews" class="recentReviewsList">
+        <div ng-repeat="comment in allComments | filter : { time : '!!' } | orderBy:'-time' | filter : { bizname : '!!' } track by $index" style="background-color:#FFFFFF;margin-bottom:15px;">
+          <li>
+            <div class="eachRR">
+              <a href="#/records/{{comment.entryid}}">{{comment.bizname}}</a>   
+               <p class="eachRRTitleInfo">{{comment.body}}</p>
+               <div class="eachRRPhotoRat">
+                  <div class="eachRRPhoto"><img src="https://cdn.yellowpages.in/assets/u/nophoto.jpg" alt=""></div>
+                  <div class="titleRating">
+                     <a class="reviewerName">{{comment.author}}</a>
+                     <div class="reviewRating">
+                        <i class="fa fa-star" ng-repeat="n in range(1,comment.score)" style="color:#ffe100;font-size: 20px;"></i>
+                        <i class="fa fa-star-o" ng-repeat="n in range(1,5-comment.score)" style="color:#ffe100;font-size: 20px;"></i>
+                       <br/>
+                       {{comment.time | date:'dd-MM-yyyy HH:mm:ss'}}
+                       <br/>
+                    </div>
+                  </div>
+               </div>
+              <br/>
+            </div>
+            </li>
+        
+        </div>
+      </ul>
+
+   <div class="haveBusiness">
+      <div class="haveBusinessAd" style="background-image:url(https://cdn.yellowpages.in/images/cityDrawing.png);">Have a business to list with us?
+         <br><a href="/#/addrecord" class="addBusinessBtn">Add your business</a>
+      </div>
+   </div>
+  </div>
+    </div>
+</div>
+<!--/div-->
+<div class="col-md-1">
+  
+</div>
+</div>
+</div>
